@@ -1,38 +1,50 @@
-.App {
-  text-align: center;
+body {
+    background: rgb(5,6,14);
+    background: -moz-linear-gradient(90deg, rgba(5,6,14,1) 0%, rgba(86,73,217,1) 50%, rgba(5,6,14,1) 100%);
+    background: -webkit-linear-gradient(90deg, rgba(5,6,14,1) 0%, rgba(86,73,217,1) 50%, rgba(5,6,14,1) 100%);
+    background: linear-gradient(90deg, rgba(5,6,14,1) 0%, rgba(86,73,217,1) 50%, rgba(5,6,14,1) 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#05060e",endColorstr="#05060e",GradientType=1);
+    color: #FFF; 
+}
+.h1 {
+    text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.container {
+    display: flex;
+    margin: 0 7%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.rank {
+    flex: 35%;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.container2 {
+    display: grid;
+    grid-template-columns: 75% 25%; /* 70% pour la première colonne, 30% pour la deuxième */
+    margin-left:13%;
+    width: 80%;
+    height: 80vh;
+    gap: 10px;
+}
+.chart {
+    background-color: rgba(173, 216, 230,0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 85%; /* Occupe toute la hauteur disponible */
+}
+.table {
+    display: grid;
+    gap: 0.5%;
+    height: 85%;
+    text-align: center;
+}
+.statgeneral {
+    text-wrap-style: flex;
+    border: 2px solid;
+    border-color: #FFF;
+    border-radius: 15% 5%;
+    margin:0 25% 1% 25%; /* Ajoute une marge de 10px en bas */
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}

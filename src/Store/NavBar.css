@@ -1,0 +1,49 @@
+/* src/NavBar.css */
+.nav-bar {
+    max-height: 85vh; /* Hauteur maximale de 80% de la hauteur de la vue */
+    overflow-y: auto; /* Défilement vertical si le contenu dépasse la hauteur maximale */
+    width: 140px;
+    padding: 2px;
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    position: fixed;
+    cursor: pointer;
+  }
+  
+  .nav-bar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .nav-bar li {
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .nav-bar li:hover {
+    background-color: #ddd;
+    cursor: pointer;
+  }
+  .nav-bar li:active {
+    color: #d5cfcfbe;
+    cursor: pointer;
+  }
+
+
+/* Custom scrollbar styles for WebKit browsers */
+.nav-bar::-webkit-scrollbar {
+    width: 12px; /* Largeur de la barre de défilement */
+}
+
+.nav-bar::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.1); /* Transparence du track (piste) */
+}
+
+.nav-bar::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.7); /* Transparence du thumb (curseur) */
+    border-radius: 6px; /* Arrondir les bords du curseur */
+}
+
+.nav-bar::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.9); /* Opacité augmentée au survol */
+}
+  

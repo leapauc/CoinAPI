@@ -1,0 +1,17 @@
+.duration {
+    flex: 50%;
+    margin: 0 7%;
+}
+button {
+    display: inline-block; /* afficher les boutons en ligne */
+    text-wrap-style: flex;
+    width: 7vw;
+    height: 5vh;
+    background-color: transparent; /* rendre le fond transparent */
+    margin-right: 0.5%;
+    border-radius: 15%;
+    border-color:#FFF;
+    cursor: pointer;
+    color:#FFF;
+    font-size: 1rem; /* ou toute autre taille de police que vous souhaitez */
+}

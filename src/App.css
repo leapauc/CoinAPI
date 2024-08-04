@@ -48,8 +48,4 @@ body {
     border-radius: 15% 5%;
     margin:0 25% 1% 25%; /* Ajoute une marge de 10px en bas */
 }
-.listHistory {
-    color: rgba(255, 255, 255,0);
-    font-size:0.000000001em;
-}
 

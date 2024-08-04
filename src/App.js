@@ -123,11 +123,7 @@ function App() {
               <h1>Price  {currencyAssets ? Math.round(currencyAssets.data.priceUsd*100)/100 : 'none'} USD</h1>
             </div>
           </section>
-          <section className="listHistory">
-            <p>{currencyHistory.map(
-						      (item) => item.priceUsd)}
-            </p>
-          </section>
+          
           <section className="container2">
             <div className="chart">
               <LineChart

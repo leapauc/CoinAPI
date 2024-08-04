@@ -66,18 +66,15 @@ function LineChart({
 		labels: labels,
 		datasets: [
 			{
-				label: selectedCurrency.name,
+				label: selectedCurrency,
 				data: data,
-				borderColor: "rgb(161,63,128)",
+				borderColor: "rgba(255,255,255)",
 			},
 		],
 	};
 
 	return (
 		<div className="lineChart">
-			<div className="title">
-				<h3>{selectedCurrency.name}</h3>
-			</div>
 			<Line
 				options={OPTIONS}
 				data={chartData}

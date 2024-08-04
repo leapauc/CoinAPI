@@ -25,10 +25,10 @@ function App() {
     }
   }
   const INTERVALS = [new Intervals("1 Week", 7),new Intervals("1 Month", 30),new Intervals("3 Months", 90),new Intervals("6 Months", 180),new Intervals("1 Year", 365)];
-  const [currentCurrency, setCurrentCurrency] = useState(null);
+  const [currentCurrency, setCurrentCurrency] = useState('bitcoin');
   const [currencyAssets, setCurrencyAssets] = useState(null); // Add state to store fetched data
   const [currentInterval, setCurrentInterval] = useState('1 Week');
-  const [currencyHistory, setCurrencyHistory] = useState(null); // Add state to store fetched data
+  const [currencyHistory, setCurrencyHistory] = useState([]); // Add state to store fetched data
   const [currencies, setCurrencyList] = useState([]);
 
   Date.prototype.ajouteJours = function(jours) {
@@ -66,7 +66,7 @@ function App() {
     const response = await fetch(`https://api.coincap.io/v2/assets/${currentCurrency}/history?interval=d1&start=${start.getTime()}&end=${end.getTime()}`);
     const data = await response.json();
     console.table(data);
-    setCurrencyHistory(data.data.map((item) => {return item.priceUsd}));
+    setCurrencyHistory(data.data);
   };
 
   const generateLabels = () => {
@@ -123,9 +123,24 @@ function App() {
               <h1>Price  {currencyAssets ? Math.round(currencyAssets.data.priceUsd*100)/100 : 'none'} USD</h1>
             </div>
           </section>
+          <section className="listHistory">
+            <p>{currencyHistory.map(
+						      (item) => item.priceUsd)}
+            </p>
+          </section>
           <section className="container2">
             <div className="chart">
-              <p>{currencyHistory}</p>
+              <LineChart
+					      data={currencyHistory.map(
+						      (item) => item.priceUsd
+					      )}
+					      labels={generateLabels()}
+					      selectedCurrency={currencies.find(
+						      (currency) =>
+							      currency ===
+							      currentCurrency
+					      )}
+				      />
             </div>
             <div className="table">
               <div className="statgeneral1">

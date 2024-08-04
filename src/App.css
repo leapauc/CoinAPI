@@ -29,10 +29,11 @@ body {
 }
 .chart {
     background-color: rgba(173, 216, 230,0.1);
-    display: flex;
+    display: inline-block;
     align-items: center;
     justify-content: center;
-    height: 85%; /* Occupe toute la hauteur disponible */
+    height: 82%; 
+
 }
 .table {
     display: grid;
@@ -46,5 +47,9 @@ body {
     border-color: #FFF;
     border-radius: 15% 5%;
     margin:0 25% 1% 25%; /* Ajoute une marge de 10px en bas */
+}
+.listHistory {
+    color: rgba(255, 255, 255,0);
+    font-size:0.000000001em;
 }
 

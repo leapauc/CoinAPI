@@ -16,21 +16,27 @@ const OPTION_MONTH_YEAR = {
 };
 
 function App() {  
-  const navItems = ['bitcoin', 'ethereum', 'bitcoin-cash', 'eos','stellar','litecoin','cardano','tether','iota','tron','ethereum-classic','monero','neo','dash', 'binance-coin','nem','tezos',
-    'zcash','omisego','vechain','qtum','0x','bitcoin-gold','bytecoin-bcn','bitshares','lisk','decred','zilliqa','aeternity','maker','digibyte','icon','ontology','dogecoin','augur','steem',
-    'moac','verge','siacoin','bytom'];
   // créer une classe
   // ou aller chercher l'id
-  const Intervals = ["1 Week","1 Month","3 Months","6 Months","1 Year"];
-  const nbDayIntervals =[7,30,90,180,365];
+  class Intervals {
+    constructor(name, nbDays) {
+      this.name = name;
+      this.nbDays = nbDays;
+    }
+  }
+  const INTERVALS = [new Intervals("1 Week", 7),new Intervals("1 Month", 30),new Intervals("3 Months", 90),new Intervals("6 Months", 180),new Intervals("1 Year", 365)];
   const [currentCurrency, setCurrentCurrency] = useState(null);
   const [currencyAssets, setCurrencyAssets] = useState(null); // Add state to store fetched data
-  const [currentInterval, setCurrentInterval] = useState(null);
+  const [currentInterval, setCurrentInterval] = useState('1 Week');
   const [currencyHistory, setCurrencyHistory] = useState(null); // Add state to store fetched data
   const [currencies, setCurrencyList] = useState([]);
 
+  Date.prototype.ajouteJours = function(jours) {
+    this.setDate(this.getDate() - jours);
+    return this;
+  };
+
   const fetchCurrencyList = async (currencies) => {
-    //dataT.data.map((item) => {return item.name});
     // Replace with the actual API endpoint and fetch logic
     const response = await fetch(`https://api.coincap.io/v2/assets`);
     const data = await response.json();
@@ -46,17 +52,21 @@ function App() {
 
   const fetchCurrencyHistory = async (currencyHistory) => {
     // Replace with the actual API endpoint and fetch logic
-    const start = new Date();
+    let start = new Date();
     // Lib moment
     // conversion UTC
-		start.setDate(
-			start.getDate() - nbDayIntervals[currentInterval]
-		);
+		console.log("Date initiale : " + start.toLocaleDateString());
+    const intervalValue = INTERVALS.find(interval => interval.name === currentInterval).nbDays;
+    start.ajouteJours(intervalValue);
+    console.log('start.getTime')
+    console.log(start.getTime())
 		const end = new Date();
+    console.log('end.getTime')
+    console.log(end.getTime())
     const response = await fetch(`https://api.coincap.io/v2/assets/${currentCurrency}/history?interval=d1&start=${start.getTime()}&end=${end.getTime()}`);
     const data = await response.json();
     console.table(data);
-    setCurrencyHistory(data);
+    setCurrencyHistory(data.data.map((item) => {return item.priceUsd}));
   };
 
   const generateLabels = () => {
@@ -80,10 +90,12 @@ function App() {
     }
   }, [currentCurrency]);
   useEffect(() => {
-    if (currentInterval) {
-      fetchCurrencyHistory(currentInterval);
+    if (currentInterval && currentCurrency) {
+      fetchCurrencyHistory(currentInterval, currentCurrency);
+      console.log(currentInterval);
+      console.log(currentCurrency);
     }
-  }, [currentInterval]);
+  }, [currencyHistory]);
 
   useEffect(() => {
     if (currencies) {
@@ -103,7 +115,7 @@ function App() {
           </section>
           <section className="container">
             <div className="duration">
-              <NavDuration items={Intervals} setCurrentInterval={setCurrentInterval} /> 
+              <NavDuration items={INTERVALS.map((item) => {return item.name})} setCurrentInterval={setCurrentInterval} /> 
               {currentCurrency && <h2>{currentCurrency}   {currencyAssets ? currencyAssets.data.symbol : 'none'}</h2>} 
             </div>
             <div className="rank">   
@@ -113,7 +125,7 @@ function App() {
           </section>
           <section className="container2">
             <div className="chart">
-              
+              <p>{currencyHistory}</p>
             </div>
             <div className="table">
               <div className="statgeneral1">
